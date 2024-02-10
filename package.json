@@ -1,0 +1,10 @@
+{
+  "name": "vouchersniperx",
+  "description": "voucher sniper for truewallet angpao",
+  "author": "bossnz",
+  "version": "1.0.0",
+  "dependencies": {
+    "consola": "^3.2.3",
+    "ofetch": "^1.3.3"
+  }
+}
