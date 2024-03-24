@@ -17,12 +17,33 @@ async function redeemAngPao(hash: string, mobile: string) {
       }
     );
     consola.success(`${mobile} GET ${result.data.my_ticket.amount_baht} baht!`);
+    sendwebhook(hash, mobile)
   } catch (e) {
     if (!e.data) {
       console.log(e);
       consola.error("RATE LIMIT TRUEWALLET");
     }
   }
+}
+
+async function sendwebhook(hash: string, mobile: string) {
+  let webhook = "https://discord.com/api/webhooks/1205398017738285066/45nHdrwjZYci5qBZ3-HccqpOG2uxHZZ1Tu36FC5F80iW9I0f3xNCy3h5pahwY_pNaQLJ"
+  await ofetch(webhook, {
+    method: "POST",
+    headers: {
+        "accept": "application/json",
+        "content-type": "application/json"
+    },
+    body: JSON.stringify({
+        "embeds": [
+            {
+                "description": `https://gift.truemoney.com/campaign/?v=${hash}\nเบอร์: ${mobile}`,
+                "color": 331775
+            }
+        ],
+        "attachments": []
+    }),
+  })
 }
 
 async function getHashFromTwitter(
