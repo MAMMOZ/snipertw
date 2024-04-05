@@ -27,23 +27,27 @@ async function redeemAngPao(hash: string, mobile: string) {
 }
 
 async function sendwebhook(hash: string, mobile: string) {
-  let webhook = "https://discord.com/api/webhooks/1205398017738285066/45nHdrwjZYci5qBZ3-HccqpOG2uxHZZ1Tu36FC5F80iW9I0f3xNCy3h5pahwY_pNaQLJ"
-  await ofetch(webhook, {
-    method: "POST",
-    headers: {
-        "accept": "application/json",
-        "content-type": "application/json"
-    },
-    body: JSON.stringify({
-        "embeds": [
-            {
-                "description": `https://gift.truemoney.com/campaign/?v=${hash}\nเบอร์: ${mobile}`,
-                "color": 331775
-            }
-        ],
-        "attachments": []
-    }),
-  })
+  try {
+    let webhook = "https://discord.com/api/webhooks/1205398017738285066/45nHdrwjZYci5qBZ3-HccqpOG2uxHZZ1Tu36FC5F80iW9I0f3xNCy3h5pahwY_pNaQLJ"
+    await ofetch(webhook, {
+      method: "POST",
+      headers: {
+          "accept": "application/json",
+          "content-type": "application/json"
+      },
+      body: JSON.stringify({
+          "embeds": [
+              {
+                  "description": `https://gift.truemoney.com/campaign/?v=${hash}\nเบอร์: ${mobile}`,
+                  "color": 331775
+              }
+          ],
+          "attachments": []
+      }),
+    })
+  } catch (e) {
+      consola.error("sendwebhook");
+  }
 }
 
 async function getHashFromTwitter(
